@@ -13,9 +13,9 @@ exports.config = {
   },
   helpers: {
     Playwright: {
-      waitForTimeout: 5000,
+      waitForTimeout: 15000,
       show: process.env.HEADLESS === 'true' ? false : true,
-      timeout: 5000,
+      timeout: 15000,
     },
     REST:{}
   },
