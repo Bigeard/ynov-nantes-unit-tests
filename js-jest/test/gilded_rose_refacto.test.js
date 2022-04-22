@@ -88,12 +88,18 @@ describe("Gilded Rose Refacto", function() {
     let items = gildedRose.updateQualityRefacto();
     expect(items[0].quality).toBe(13);
   });
+  
+  it("test conjured",function() {
+    const gildedRose = new Shop([new Item("Conjured", 4, 10)]);
+    let items = gildedRose.updateQualityRefacto();
+    expect(items[0].quality).toBe(8);
+  
+  });
+
+
   // feature testée : la qualité d'un produit ne peut être négative 
-  // Given  : 1 produit dont la qualité
-  // given 1 produit qui unproduit backsta
-  // when un tour
-  //then le produit + 3 en qualité est 0(zéro)
-  // When : passer 1 tour de updateQualityRefacto
+  // Given  : 1 produit dont la qualité est 0(zéro)
+  // When : passer 1 tour de updateQuality
   // THEN : la qualité du produit reste à 0 et ne descend pas à -1
   it("test qualité produit pas négative" , function(){
     const gildedRose = new Shop([new Item("Produit aléatoire", 10, 0)]);

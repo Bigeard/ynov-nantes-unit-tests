@@ -36,18 +36,14 @@ class Shop {
               if(item.sellIn<=5 ){
                 item.quality = item.quality + 1;
               }
-              // valider "testBackstage"
-              if(item.sellIn == 0){
-                item.quality = 0 ;
-              }
+              
 
 
             }
         break;
         case 'Conjured':
-            if (item.sellIn < 0) {
-                item.quality = item.quality + 1;}
-            else if (item.quality > 0) {
+          
+           if (item.quality > 0) {
                 item.quality = item.quality - 2;
             }
             break;
