@@ -141,7 +141,6 @@ describe('Demineur', function () {
         }
     })
 
-   
     it('l ordonnee ne peut etre superieur à 100', function () {
         const map_x = 16
         const map_y = 101
@@ -150,5 +149,50 @@ describe('Demineur', function () {
         const lengthAttendu = (game.map.map_y = 100)
         expect(lengthAttendu).toBe(100)
     })
-   
+
+    it('user story une bombe test des case autour', function () {
+        // Given on crée une map
+        maptest = new Map(10, 10, 0)
+        
+        // When une bombes est ajouté en (4,5)
+        maptest.map[5][5].type = true
+        maptest.GenerateCell()
+
+        // Then
+        expect(maptest.map[4][4].value).toBe(1)
+        expect(maptest.map[4][5].value).toBe(1)
+        expect(maptest.map[4][6].value).toBe(1)
+        expect(maptest.map[5][4].value).toBe(1)
+        expect(maptest.map[5][6].value).toBe(1)
+        expect(maptest.map[6][4].value).toBe(1)
+        expect(maptest.map[6][5].value).toBe(1)
+        expect(maptest.map[6][6].value).toBe(1)
+    })
+
+    /*it('il ne peut y avoir deux bombes sur la même ligne', function () {
+        //Given j ai une matrice de 5 sur 5
+        // And J 'ai 12 Bombes
+
+        const map_x = 5
+        const map_y = 5
+        const num_mine = 12
+
+        //When je génère la map avec des mines
+        const myGame = new Game(map_x, map_y, num_mine)
+        // et la varaibele nécessaire aux tests
+        var arrayCountOfMineOnOneLine = [0, 0, 0, 0, 0]
+
+        for (let i = 0; i < myGame.map.length; i++) {
+            for (let j = 0; i < mapSansPuisAvecMines.map[0].length; j++) {
+                if (mapSansPuisAvecMines.map[i][j].type == true) {
+                    arrayCountOfMineOnOneLine[i]++
+                }
+            }
+        }
+
+        // Then il n y a pas deux mines sur la meme ligne
+        for (let x = 0; x < arrayCountOfMineOnOneLine.length; x++) {
+            expect(arrayCountOfMineOnOneLine[x].not.toBe(2))
+        }
+    })*/
 })

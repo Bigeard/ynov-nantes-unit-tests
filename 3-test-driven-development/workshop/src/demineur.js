@@ -23,10 +23,12 @@ class Map {
         this.map_x = map_x
         this.map_y = map_y
         this.num_mine = num_mine
-        this.GenerateMap(this.map_x, this.map_y, this.num_mine)
+        this.GenerateMap(this.map_x, this.map_y)
         this.GenerateMineOnACell(num_mine)
         this.GenerateCell()
     }
+    
+    
 
     GenerateMap(map_x, map_y) {
         const map = []
@@ -115,13 +117,45 @@ class Map {
 
 class Game {
     constructor(map_x, map_y, num_mine) {
-        this.GenerateMap(map_x, map_y, num_mine)
+        this.GenerateMap(map_x, map_y)
+    }
+
+    SortieConsole1(map) {
+        console.log('field #1')
+        for (let i = 0; i < map.length; i++) {
+            let line = ''
+            for (let j = 0; j < map[i].length; j++) {
+                if (map[i][j].type == true) {
+                    line += '*'
+                } else {
+                    line += '.'
+                }
+            }
+            console.log(line)
+        }
+    }
+
+    SortieConsole2(map){
+        console.log('field #2')
+        for (let i = 0; i < map.length; i++) {
+            let line = ''
+            for (let j = 0; j < map[i].length; j++) {
+                if (map[i][j].type == true) {
+                    line += '*'
+                } else {
+                    line += map[i][j].value
+                }
+            }
+            console.log(line)
+        }
     }
 
     GenerateMap(map_x, map_y, num_mine) {
         //demande des parametres (plus tard)
-        /*
+        
+        
         const prompt = require("prompt-sync")();
+
         while(map_x > 100 || map_y > 100){
             map_x = prompt("Entrez la taille de la map en x");
             map_y = prompt("Entrez la taille de la map en y");
@@ -130,11 +164,13 @@ class Game {
         while(map_x*map_y < num_mine){
             num_mine = prompt("Entrez le nombre de mines");
         }
-*/
+
         //generation de la map
         const { map } = new Map(map_x, map_y, num_mine)
         this.map = map
 
+        //this.SortieConsole1(this.map)
+        //this.SortieConsole2(this.map)
         console.log('field #1')
         for (let i = 0; i < this.map.length; i++) {
             let line = ''
@@ -158,11 +194,11 @@ class Game {
                 }
             }
             console.log(line)
-        }
     }
-}
+}}
 
-new Game(5, 5, 6)
+
+new Game(10, 10, 5)
 
 module.exports = {
     Game,
