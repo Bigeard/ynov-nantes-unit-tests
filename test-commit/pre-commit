@@ -33,7 +33,8 @@ printf "${yellow}Starting Unit Tests for JS Files:${reset}\n"
 # but we'll do more general
 cd ./3-test-driven-development/workshop
 npm test
-
+npx prettier --check "./3-test-driven-development/workshop/src/**/*.js"
+npx prettier --check "./3-test-driven-development/workshop/test/**/*.js"
 
 # now if tests failed let's abort commit by "exit 1"
 # if not, congratulations, commit is now in Git
