@@ -7,12 +7,23 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest"
+    "start": "node ./src/demineur.js",
+    "test": "jest",
+    "prepare": "husky install",
+    "debug": "node ./src/demineur.js --inspect"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "jest": "^28.0.2",
     "prompt-sync": "^4.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "CI=true npm run test"
+    }
+  },
+  "devDependencies": {
+    "husky": "^7.0.4"
   }
 }

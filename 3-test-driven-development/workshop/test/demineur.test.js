@@ -73,168 +73,82 @@ Cell(x: int, y: int, type: bool)
 
     ChangeValue(value: int)
 */
-const {Game, Map, Cell} = require("../src/demineur.js");
+const { Game, Map, Cell } = require('../src/demineur.js')
 
-describe("Demineur", function() {
-    it("verification taille map", function() {
-        // Given
-        const map_x = 5;
-        const map_y = 5;
-        const num_mine = 2;
-        const map = new Map(map_x,map_y,num_mine);
-        // When
-        map.GenerateMap(map_x, map_y, num_mine);
-        // Then
-        expect(map.map.length).toBe(map_x);
-        expect(map.map[0].length).toBe(map_y);
-    });
+describe('Demineur', function () {
+    it('verification taille map', function () {
+        const map_x = 5
+        const map_y = 4
+        const num_mine = 2
+        const map = new Map(map_x, map_y, num_mine)
+        expect(map.map.length).toBe(map_x)
+        expect(map.map[0].length).toBe(map_y)
+    })
 
-    /*it("verification nombre de mines abscisse pair", function() {
-        
-        // sachant que sur 4*4 il y a 2 mines
-        // nbombre de mines = abscisse /2 :
-        // nb de mines doit etre pair ;
-        // Given 
-        const map_x = 4;
-        const map_y = 35;
+    // TODO : verification nombres de mines impairs
 
-        //const map = new Map(map_x, map_y);
-        
+    it('verification taille max de mine', function () {
+        const map_x = 5
+        const map_y = 5
+        const num_mine = 24
+        const map = new Map(map_x, map_y, num_mine)
+        let tailles = map.map_x * map.map_y
+        expect(map.num_mine).toBeLessThan(tailles)
+    })
 
-        // When
-        const myGame = new Game(map_x, map_y);
-        console.log(myGame);
-        // Then
-        const nombredeMinesEnDur = 2;
-        expect(myGame.map.num_mine).toBe(nombredeMinesEnDur);
-
-        
-        
-   
-   
-    });*/
-
-    //TODO : verification nombres de mines impairs 
-
-    it("verification taille max de mine",function(){
-        // Given
-        const map_x = 5;
-        const map_y = 5;
-        const num_mine = 24;
-        const game = new Game(map_x,map_y,num_mine);
-        
-        tailles = map_x*map_y;
-        expect(game.map.num_mine).toBeLessThan(tailles);
-    });
-
-    it("verification bon calcul des case", function(){
-        // Given
-        const map_x = 50;
-        const map_y = 50;
-        const num_mine = 20;
-        const game = new Game(map_x, map_y, num_mine);
-        // When and Then
-        for (let i = 0; i < game.map.length; i++) {
-            for (let j = 0; j < game.map[i].length; j++) {
-                if (game.map[i][j].type === false) { // not mine (type=false)
-                    let count_num_mine = 0;
-                    if (game.map[i+1][j].type === true) count_num_mine++;
-                    if (game.map[i-1][j].type === true) count_num_mine++;
-                    if (game.map[i][j+1].type === true) count_num_mine++;
-                    if (game.map[i][j-1].type === true) count_num_mine++;
-                    if (game.map[i+1][j+1].type === true) count_num_mine++;
-                    if (game.map[i-1][j-1].type === true) count_num_mine++;
-                    if (game.map[i+1][j-1].type === true) count_num_mine++;
-                    if (game.map[i-1][j+1].type === true) count_num_mine++;
-    
-                    expect(count_num_mine).toBe(game.map[i][j].value);
-                }
-            }
-        }
-    });
-
-    it("Tester si la cell est une bombe (si value true)", function() {
-        // Given
-        const map_x = 5;
-        const map_y = 5;
-        const num_mine = 0;
-        const game = new Game(map_x, map_y, num_mine);
-        game.map[0][0].type=true;
-        //game.new Cell(i, j, false);
-
-        expect(game.map[0][0].type).toBe(true);
-        
-
-        // When
+    it('test d une cellule devant etre une bombe', function () {
+        const map_x = 50
+        const map_y = 50
+        const num_mine = 20
+        const game = new Game(map_x, map_y, num_mine)
         for (let i = 0; i < game.map.length; i++) {
             for (let j = 0; j < game.map[i].length; j++) {
                 if (game.map[i][j].type === false) {
-                    expect(game.map[i][j].value).toBe(false);
-                    if (game.map[i][j].value === true) {
-                        expect(game.map[i][j].type).toBe(true);
+                    // not mine (type=false)
+                    let count_num_mine = 0
+                    if (i < map_x - 1) {
+                        if (game.map[i + 1][j].type === true) count_num_mine++
                     }
+                    if (i > 0) {
+                        if (game.map[i - 1][j].type === true) count_num_mine++
+                    }
+                    if (j < map_y - 1) {
+                        if (game.map[i][j + 1].type === true) count_num_mine++
+                    }
+                    if (j > 0) {
+                        if (game.map[i][j - 1].type === true) count_num_mine++
+                    }
+                    if (i < map_x - 1 && j < map_y - 1) {
+                        if (game.map[i + 1][j + 1].type === true)
+                            count_num_mine++
+                    }
+                    if (i > 0 && j > 0) {
+                        if (game.map[i - 1][j - 1].type === true)
+                            count_num_mine++
+                    }
+                    if (i < map_x - 1 && j > 0) {
+                        if (game.map[i + 1][j - 1].type === true)
+                            count_num_mine++
+                    }
+                    if (i > 0 && j < map_y - 1) {
+                        if (game.map[i - 1][j + 1].type === true)
+                            count_num_mine++
+                    }
+
+                    expect(count_num_mine).toBe(game.map[i][j].value)
                 }
             }
         }
-
-     
     })
 
-    it("l ordonnee ne peut etre superieur à 100" , function(){
-        //Given 
-        const map_x = 16 ;
-        const map_y = 101;
-        const num_mine = 15 ;
-        //When
-        const game = new Game(map_x, map_y, num_mine);
-        //THen
-        const lengthAttendu = game.map.map_y = 100 ;
-        expect(lengthAttendu).toBe(100);
-
-        
-        
-    });
-    /*//test last to practice
-    // given 
-    // 3 bombes sur 3 lignes de 3
-    it("get value of a cell" , function(){
-        const map_y = 3;
-        const num_mine = 3;
-        const map_x = 3;
-        const myGame = new Game(map_x , map_y , num_mine);
-        
-
-    });*/
-    
-    it("verifier présence de mines par lignes seulement une et nombres de mines posées ok" , function(){
-        
-        //Given matrice de 3 sur 3 et 3 bombes 
-        const map_y = 3;
-        const num_mine = 3;
-        const map_x = 3;
-        
-
-        // When
-        const myGame = new Game(map_x , map_y , num_mine);
-
-        //then 
-        presenceMineSur3Lignes = [false , false , false] ;
-        maMap = myGame.map;
-        for (let i = 0 ; i < map[i].length ; i ++){
-            for(let j = 0 ; j < map[i][j].length ; j ++){
-                    if(map[i][j] == true){
-                        presenceMineSur3Lignes[i] = true ;
-                    }
-            }
-        }
-        for (let k = 0 ; k < presenceMineSur3Lignes.length ; k ++){
-
-        }
-
-
-    });
-     
-
-
-
-});
+   
+    it('l ordonnee ne peut etre superieur à 100', function () {
+        const map_x = 16
+        const map_y = 101
+        const num_mine = 15
+        const game = new Game(map_x, map_y, num_mine)
+        const lengthAttendu = (game.map.map_y = 100)
+        expect(lengthAttendu).toBe(100)
+    })
+   
+})
