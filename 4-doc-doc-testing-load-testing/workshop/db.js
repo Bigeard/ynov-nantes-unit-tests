@@ -5,7 +5,7 @@ module.exports = mongoose = require('mongoose');
  */
 
 // const db_url = "mongodb://mongo:27017/toDoApp" // Docker
-const db_url = "mongodb://localhost:27017/toDoApp" // Local
+const db_url = "mongodb+srv://nairod49:QAgPScJzrLz0sYN3@cluster0.fmw0t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" // Local
 // const db_url = process.env.DB_URL;
 // "mongodb://localhost:27017/dev_db"
 // "mongodb+srv://...:{{URL}}/..."
