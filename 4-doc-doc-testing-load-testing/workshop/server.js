@@ -14,6 +14,6 @@ app.use(express.static(__dirname + '/public'));
 
 // Init Routes
 const base = '/api/v1';
-app.use(base + '/todo', require('./routes/todo.js'));
+app.use(base + '/todo', require('./routes/toDo.js'));
 
 app.listen(PORT);
