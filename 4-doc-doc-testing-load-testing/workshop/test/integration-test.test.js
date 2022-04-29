@@ -1,4 +1,5 @@
-const DB_URI = 'mongodb+srv://nairod49:QAgPScJzrLz0sYN3@cluster0.fmw0t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const DB_URI =
+    'mongodb+srv://nairod49:QAgPScJzrLz0sYN3@cluster0.fmw0t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const mongoose = require('mongoose')
 const ToDo = require('../models/toDoModel').ToDo
 
@@ -41,6 +42,5 @@ describe('Test Intégration MongoDB', function () {
             const dbTodo = await ToDo.findOne({ text: todoData.text })
             expect(dbTodo).toBe(null)
         })
-
     })
 })

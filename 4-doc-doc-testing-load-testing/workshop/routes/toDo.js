@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const ToDo = require('../models/toDoModel.js').ToDo;
+const express = require('express')
+const router = express.Router()
+const ToDo = require('../models/toDoModel.js').ToDo
 
 /*
 Routes ToDo
@@ -14,12 +14,16 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     const body = req.body
-    const toDo = new ToDo({
-        text: body.text,
-    })
-    toDo.save(toDo)
-        .then((savedToDo) => res.status(201).send(savedToDo))
-        .catch((err) => res.status(400).send(err))
+    if (checkToDo(body)) {
+        const toDo = new ToDo({
+            text: body.text,
+        })
+        toDo.save(toDo)
+            .then((savedToDo) => res.status(201).send(savedToDo))
+            .catch((err) => res.status(400).send(err))
+    } else {
+        res.status(400).send('err')
+    }
 })
 
 router.patch('/:id', (req, res) => {
@@ -29,4 +33,4 @@ router.patch('/:id', (req, res) => {
         .catch((err) => res.status(400).send(err))
 })
 
-module.exports = router;
+module.exports = router

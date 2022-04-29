@@ -14,10 +14,13 @@
     "dependencies": {
         "body-parser": "^1.18.3",
         "codeceptjs": "3.3.2",
+        "dredd": "^14.1.0",
         "express": "^4.16.4",
         "jest": "28.0.2",
         "mongoose": "^5.4.1",
-        "nodemon": "^1.18.9"
+        "nodemon": "^1.18.9",
+        "swagger-jsdoc": "^6.2.1",
+        "swagger-ui-express": "^4.3.0"
     },
     "devDependencies": {
         "codeceptjs": "^3.3.2",

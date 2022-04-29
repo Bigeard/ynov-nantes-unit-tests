@@ -1,0 +1,144 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "documenter un court projet en node",
+    "version": "1.0.0",
+    "title": "REST API CRU - Documentation",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "guillaume.gouy@ynov.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "item",
+      "description": "cread & read item from mongo service",
+      "externalDocs": {
+        "description": "git repository of based kata project",
+        "url": "https://github.com/PaulRouss3l/ynov-nantes-unit-tests/tree/master/4-doc-doc-testing-load-testing/workshop"
+      }
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/todo": {
+      "post": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Add an  item to the mean of persistence (MONGO) ",
+        "description": "...",
+        "operationId": "addItem",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "insert an item",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ToDo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ToDo"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "item"
+        ],
+        "summary": "get collections of items",
+        "description": "...",
+        "operationId": "getWhole",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "you got whole collection",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ToDo"
+              }
+            }
+          },
+          "400": {
+            "description": "missing text of todo"
+          }
+        }
+      }
+    },
+    "/todo/{id}": {
+      "patch": {
+        "tags": [
+          "item"
+        ],
+        "summary": "make todo done",
+        "description": "...",
+        "operationId": "patch One to do",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "description": "id of todo",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "your todo is done",
+            "schema": {
+              "$ref": "#/definitions/ToDo"
+            }
+          },
+          "404": {
+            "description": "this todo doesn t exists"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ToDo": {
+      "type": "object",
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "complete": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  }
+}
