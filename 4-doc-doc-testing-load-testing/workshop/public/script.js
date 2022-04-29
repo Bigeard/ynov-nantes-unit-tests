@@ -1,5 +1,5 @@
 window.onload = function() {
-  fetch('/todo', {
+  fetch('/api/v1/todo', {
     method: 'GET'
   })
   .then((res) => res.json())
@@ -37,7 +37,7 @@ window.onload = function() {
 
 function createTODO() {
   const todo = document.querySelector('input').value;
-  fetch('/todo', {
+  fetch('/api/v1/todo', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -50,7 +50,7 @@ function createTODO() {
 
 function doneTODO(event) {
   const { id } = event.target;
-  fetch(`/todo/${id}`, {
+  fetch(`/api/v1/todo/${id}`, {
     method: 'PATCH',
     headers: {
       'Accept': 'application/json',

@@ -1,14 +1,18 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const ToDo = require('../models/toDoModel.js').ToDo;
 
-router.get('/todo', (req, res) => {
+/*
+Routes ToDo
+*/
+
+router.get('/', (req, res) => {
     ToDo.find()
         .then((toDos) => res.status(200).send(toDos))
         .catch((err) => res.status(400).send(err))
 })
 
-router.post('/todo', (req, res) => {
+router.post('/', (req, res) => {
     const body = req.body
     const toDo = new ToDo({
         text: body.text,
@@ -18,7 +22,7 @@ router.post('/todo', (req, res) => {
         .catch((err) => res.status(400).send(err))
 })
 
-router.patch('/todo/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
     const { id } = req.params
     ToDo.findOneAndUpdate({ _id: id }, { done: true })
         .then((toDo) => res.status(200).send(toDo))
