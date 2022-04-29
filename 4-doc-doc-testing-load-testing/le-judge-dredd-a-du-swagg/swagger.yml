@@ -1,0 +1,178 @@
+---
+swagger: "2.0"
+info:
+  description: "Simple and basic API description. Can't wait the day I will generate\
+    \ automatically the documentation, the server, the client by saying one word"
+  version: "1.0"
+  title: "zombie-resource"
+  license:
+    name: "MIT"
+host: "localhost:3000"
+basePath: "/v5"
+tags:
+- name: "zombie-appliants"
+  description: "Potential new recruits"
+- name: "zombies"
+  description: "Collaborators inside our company"
+- name: "demon-investors"
+  description: "Capital providers"
+schemes:
+- "https"
+paths:
+  /linkedeads:
+    get:
+      tags:
+      - "zombie-appliants"
+      summary: "Retrieve potential profiles"
+      operationId: "getLinkedead"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "max-age"
+        in: "query"
+        description: "filter with a max-age for the zombie"
+        required: false
+        type: "integer"
+        default: 10
+      responses:
+        "200":
+          description: "Castring properly retrieved"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PotentialZombie"
+        "500":
+          description: "Error server side"
+      x-swagger-router-controller: "ZombieAppliants"
+  /linkedeads/{potentialZombieID}:
+    get:
+      tags:
+      - "zombie-appliants"
+      summary: "Retrieve one profile"
+      operationId: "getPotentialZombie"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "potentialZombieID"
+        in: "path"
+        description: "ID of the potential zombie to retrieve"
+        required: true
+        type: "string"
+        default: "2390kmld09"
+      responses:
+        "200":
+          description: "PotentialZombie properly retrieved"
+          schema:
+            $ref: "#/definitions/PotentialZombie"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "PotentialZombie not found"
+        "500":
+          description: "Error server side"
+      x-swagger-router-controller: "ZombieAppliants"
+  /undeadoffice/{potentialZombieID}:
+    post:
+      tags:
+      - "zombies"
+      summary: "Recruit one profile"
+      operationId: "recruitPotentialZombie"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "potentialZombieID"
+        in: "path"
+        description: "ID of the potential zombie to recruit"
+        required: true
+        type: "string"
+        default: "2390kmld09"
+      - in: "body"
+        name: "body"
+        description: "Created zombie object"
+        required: true
+        schema:
+          $ref: "#/definitions/PotentialZombie"
+      responses:
+        "200":
+          description: "Zombie properly recruited"
+          schema:
+            $ref: "#/definitions/Zombie"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "PotentialZombie not found"
+        "500":
+          description: "Error server side"
+      x-swagger-router-controller: "Zombies"
+securityDefinitions:
+  zr_auth:
+    type: "oauth2"
+    authorizationUrl: "http://sso.zombie.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      read:prospects: "read your potential zombie"
+      read:recruits: "read your potential zombie"
+definitions:
+  PotentialZombie:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      age:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
+      status:
+        type: "string"
+        description: "Awareness Status"
+        enum:
+        - "HPI zombie"
+        - "Braindead zombie"
+        - "vegetable"
+      complete:
+        type: "boolean"
+        default: false
+    xml:
+      name: "PotentialZombie"
+    example:
+      name: "name"
+      id: 0
+      complete: false
+      age: 6
+      status: "HPI zombie"
+  Zombie:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      potentialZombieId:
+        type: "string"
+      age:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
+      recruitmentDate:
+        type: "string"
+        format: "date-time"
+      status:
+        type: "string"
+        description: "Awareness Status"
+        enum:
+        - "HPI zombie"
+        - "Braindead zombie"
+        - "vegetable"
+      complete:
+        type: "boolean"
+        default: false
+    xml:
+      name: "Zombie"
+    example:
+      potentialZombieId: 6
+      name: "name"
+      recruitmentDate: "2000-01-23T04:56:07.000+00:00"
+      id: 0
+      complete: false
+      age: 1
+      status: "HPI zombie"
